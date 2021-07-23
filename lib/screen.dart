@@ -14,6 +14,8 @@ import 'package:email_validator/email_validator.dart';
 
 class Screen extends StatefulWidget {
   const Screen({Key? key}) : super(key: key);
+  // final String? isoCode;
+  // Screen({this.isoCode});
 
   @override
   _ScreenState createState() => _ScreenState();
@@ -48,23 +50,25 @@ class _ScreenState extends State<Screen> {
                           color: Colors.transparent,
                           child: Stack(
                             children: <Widget>[
-                              ClipPath(
-                                clipper: WaveClipper(),
-                                // WaveClipper(),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.4,
-                                  color: Colors.blue.shade900,
-                                ),
-                              ),
-
                               // ClipPath(
-                              //     clipper: WaveClipper(),
-                              // child: Container(
-                              //     color: Colors.blue.shade900,
+                              //   clipper: WaveClipper(),
+                              //   // WaveClipper(),
+                              //   child: Container(
                               //     width: MediaQuery.of(context).size.width,
-                              //     height: MediaQuery.of(context).size.height * 0.4)),
+                              //     height:
+                              //         MediaQuery.of(context).size.height * 0.4,
+                              //     color: Colors.blue.shade900,
+                              //   ),
+                              // ),
+
+                              ClipPath(
+                                  clipper: WaveClipper(),
+                                  child: Container(
+                                      color: Colors.blue.shade900,
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.4)),
 
                               // CustomPaint(
                               //   size: Size(800, 260),
@@ -72,7 +76,7 @@ class _ScreenState extends State<Screen> {
                               //       width: MediaQuery.of(context).size.width,
                               //       height: MediaQuery.of(context).size.height * 0.4),
                               // ),
-                              // ),
+
                               Positioned(
                                   right: 1,
                                   child: Image.asset("assets/background.png",
@@ -147,6 +151,7 @@ class _ScreenState extends State<Screen> {
                                   onChanged: (value) {
                                     setState(() {
                                       _ejaraCheck = contains(value, "ejara");
+                                      username = value;
                                     });
                                     print("ejara check");
                                     print(_ejaraCheck);
@@ -190,14 +195,14 @@ class _ScreenState extends State<Screen> {
                                   onChanged: (phone) {
                                     setState(() {
                                       phoneNumber = phone.completeNumber;
-                                      countryCode = "$phone.countryCode";
+                                      countryCode = phone.iscode;
                                     });
 
                                     print(phone.completeNumber);
                                   },
                                   onCountryChanged: (phone) {
                                     print('Country code changed to: ' +
-                                        "$phone.countryCode");
+                                        "$phone.completeNumber");
                                   },
                                 ),
                                 SizedBox(
@@ -231,10 +236,11 @@ class _ScreenState extends State<Screen> {
                       onTap: () {
                         username.contains("ejera");
                         ejeraRequest(
-                            email: email,
-                            userName: username,
-                            phoneNumber: phoneNumber,
-                            countryCode: countryCode);
+                          userName: username,
+                          email: email,
+                          phoneNumber: phoneNumber,
+                          countryCode: countryCode,
+                        );
                         isValidEmail = EmailValidator.validate(email);
                         if (isValidEmail == false) {
                           setState(() {

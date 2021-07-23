@@ -263,7 +263,7 @@ const List<Map<String, dynamic>> countries = [
     "flag": "🇨🇲",
     "code": "CM",
     "dial_code": 237,
-    "max_length": 8
+    "max_length": 9
   },
   {
     "name": "Canada",

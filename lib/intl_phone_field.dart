@@ -1,5 +1,6 @@
 library intl_phone_field;
 
+import 'package:ejeraapp/request/ejeraRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -277,6 +278,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                           ),
                           onTap: () {
                             _selectedCountry = filteredCountries[index];
+                            // ejeraRequest(countryCode: _selectedCountry['code']);
 
                             if (widget.onCountryChanged != null) {
                               widget.onCountryChanged!(
@@ -376,10 +378,6 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              if (widget.enabled && widget.showDropdownIcon) ...[
-                widget.dropDownIcon,
-                SizedBox(width: 4)
-              ],
               if (widget.showCountryFlag) ...[
                 Image.asset(
                   'assets/flags/${_selectedCountry['code']!.toLowerCase()}.png',
@@ -387,6 +385,10 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                   width: 32,
                 ),
                 SizedBox(width: 8)
+              ],
+              if (widget.enabled && widget.showDropdownIcon) ...[
+                widget.dropDownIcon,
+                SizedBox(width: 4)
               ],
               FittedBox(
                 child: Text(
